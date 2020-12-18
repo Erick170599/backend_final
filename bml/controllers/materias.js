@@ -106,7 +106,7 @@ const updateMateria = async(req, res) => {
         {
             'name': 'horasT',
             'value': horasT
-        }, ,
+        },
         {
             'name': 'creditos',
             'value': creditos
