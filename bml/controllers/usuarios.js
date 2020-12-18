@@ -99,7 +99,7 @@ const addUsuario = async(req, res = response) => {
     } else {
         res.json({
             status: false,
-            message: 'El email ya fue registrado',
+            message: 'El email ya contiene una cuenta existente',
             data: null
         })
     }

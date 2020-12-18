@@ -17,4 +17,9 @@ const generateJWT = (id) => {
     });
 }
 
-module.exports = { generateJWT }
+const auxToken = (token) => {
+    const decoded = jwt.decode(token, process.env.JWT_SECRET);
+    return decoded.id;
+}
+
+module.exports = { generateJWT, auxToken }

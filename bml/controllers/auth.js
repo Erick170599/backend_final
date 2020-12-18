@@ -1,7 +1,7 @@
 const { response } = require('express');
 const bcrypt = require('bcryptjs');
 
-const { generateJWT } = require('../helpers/jwt');
+const { generateJWT, auxToken } = require('../helpers/jwt');
 const { googleVerify } = require('../helpers/google-verify');
 
 const { querySingle } = require('../../dal/data-access');
@@ -92,7 +92,7 @@ const googleSignIn = async(req, res = response) => {
         } else {
             sqlParams = [{
                     'name': 'nombre',
-                    'value': usuario.name
+                    'value': name
                 },
                 {
                     'name': 'email',
@@ -116,7 +116,7 @@ const googleSignIn = async(req, res = response) => {
                 },
                 {
                     'name': 'imagen',
-                    'value': usuario.picture
+                    'value': picture
                 },
                 {
                     'name': 'idUsuario',
@@ -144,19 +144,16 @@ const googleSignIn = async(req, res = response) => {
 }
 
 const loginToken = async(req, res = response) => {
-    const { email, token } = req.body;
-    const sqlParams = [{
-        'name': 'email',
-        'value': email
-    }, ];
-    const usuario = await querySingle('stp_usuarios_login', sqlParams);
-    const tokenNew = await generateJWT(usuario.idUsuario);
-    res.json({
+    const token = req.body.token;
+
+    const id = await auxToken(token);
+    const tokenNew = await generateJWT(id);
+    res.status(201).json({
         status: true,
-        message: 'Acceso correcto',
+        message: 'Acesso Correcto',
         data: tokenNew
     });
-};
+}
 
 module.exports = {
     login,

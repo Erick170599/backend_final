@@ -4,7 +4,7 @@ const { Router } = require('express');
 const { login, googleSignIn, loginToken } = require('../bml/controllers/auth');
 const { check } = require('express-validator');
 const { validarCampos } = require('../bml/middlewares/validar-campos');
-const { validarJWT } = require('../bml/middlewares/validar-jwt')
+const { validarJWT, validarLogin } = require('../bml/middlewares/validar-jwt')
 
 const router = Router();
 
@@ -24,10 +24,10 @@ router.post('/google', [
     googleSignIn
 )
 
-router.post('/renew', [
-        check('email', 'El email es obligatorio').isEmail(),
-        check('token', 'El token es obligatorio').not().isEmpty(),
+router.post("/renew", [
+        check("token", "El token es obligatorio").not().isEmpty(),
         validarCampos,
+        validarLogin,
     ],
     loginToken
 );
