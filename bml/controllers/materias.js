@@ -115,7 +115,7 @@ const updateMateria = async(req, res) => {
 
     const materia = await querySingle('stp_materias_update', sqlParams);
 
-    if (rowsAffected != 0) {
+    if (materia != 0) {
         res.json({
             status: true,
             message: 'Actualización exitosa',
@@ -137,8 +137,8 @@ const deleteMateria = async(req, res) => {
         'value': id
     }];
 
-    let rowsAffected = await execute('stp_materias_delete', sqlParams);
-    if (rowsAffected != 0) {
+    let materia = await execute('stp_materias_delete', sqlParams);
+    if (materia != 0) {
         res.json({
             status: true,
             message: 'Eliminada exitosamente',

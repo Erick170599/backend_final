@@ -110,13 +110,13 @@ const updateAlumno = async(req, res) => {
         }
     ];
 
-    const usuario = await querySingle('stp_alumnos_update', sqlParams);
+    const alumno = await querySingle('stp_alumnos_update', sqlParams);
 
-    if (usuario != 0) {
+    if (alumno != 0) {
         res.json({
             status: true,
             message: 'Actualización exitosa',
-            data: usuario
+            data: alumno
         });
     } else {
         res.json({
@@ -134,8 +134,8 @@ const deleteAlumno = async(req, res) => {
         'value': id
     }];
 
-    let rowsAffected = await execute('stp_alumnos_delete', sqlParams);
-    if (rowsAffected) {
+    let alumno = await execute('stp_alumnos_delete', sqlParams);
+    if (alumno) {
         res.json({
             status: true,
             message: 'Eliminado exitosamente',
